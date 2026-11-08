@@ -1,0 +1,221 @@
+<?php
+error_reporting(0);
+require "config/database.php";
+require "config/config.php";
+
+?>
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kategori Yorum Botu - DolapBotuV1</title>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="./assets/js/jquery.min.js"></script>
+	<script async src="script.js"></script
+  </head>
+  <body>
+    <div class="container-scroller">
+
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+          <a class="navbar-brand brand-logo" href="index.php"><img src="assets/images/logo-dark.png" alt="logo" /></a>
+          </div>
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </nav>
+
+
+
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-category">ANA</li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                <span class="icon-bg"><i class="mdi mdi-cube"></i></span>
+                <span class="menu-title">Anasayfa</span>
+              </a>
+            </li>
+            <li class="nav-item nav-category">ARAÇLAR</li>
+            <li class="nav-item">
+              <a class="nav-link" href="comment" >
+                <span class="icon-bg"><i class="mdi mdi-comment"></i></span>
+                <span class="menu-title">Yorum Botu</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category-comment" >
+                <span class="icon-bg"><i class="mdi mdi-comment"></i></span>
+                <span class="menu-title">Kategori Yorum Botu</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="api/creator.php" >
+                <span class="icon-bg"><i class="mdi mdi-account"></i></span>
+                <span class="menu-title">Hesap Oluşturucu</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="follow.php" >
+                <span class="icon-bg"><i class="mdi mdi-account-plus"></i></span>
+                <span class="menu-title">Takipçi Gönder</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="like.php" >
+                <span class="icon-bg"><i class="mdi mdi-heart"></i></span>
+                <span class="menu-title">Begeni Gönder</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="coupon.php" >
+                <span class="icon-bg"><i class="mdi mdi-ticket"></i></span>
+                <span class="menu-title">Kupon Kontrol</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="main-panel">
+          <div class="content-wrapper">
+    <center>
+        <div class="col-md-8" style="width: 100%;">
+            <div class="card" style="width: 100%;">
+                <div class="card-header bg-dark mb-3">
+                </div>
+                <div class="card-body">
+                <h4 class="card-title">Dolap Kategori Yorum Botu</h4>
+				                <p class="card-description"> Eklediginiz Hesabı Kullanarak Belirttiginiz Kategorideki Tüm Ürünlere Yorum Gönderecektir  </p>
+				<?php
+
+$sorgu = $conn->query("SELECT * FROM yorumcu ORDER BY id ASC LIMIT 1");
+//BySeCReT
+  while($sonuc = $sorgu->fetch()){
+
+                      ?>
+					  
+
+				<p class="card-description">Yorum Yapacak Olan Hesap: <?php echo mb_strtolower($sonuc["username"]); ?></p>
+				 <?php
+                      } ?>
+               <br>
+               <br>
+                <select class="form-control" id="category">
+                <option value="">Kategori Seçiniz</option>
+                <option value="ust-giyim">Üst Giyim</option>
+                <option value="alt-giyim">Alt Giyim</option>
+                <option value="elbise">Elbise</option>
+                <option value="dis-giyim">Dış Giyim</option>
+                <option value="plaj-giyim">Plaj Giyim</option>
+                <option value="ev-giyim">Ev Giyim</option>
+                <option value="kol-cantasi">Kol Çantası</option>
+                <option value="askili-canta">Askılı Çanta</option>
+                <option value="sirt-cantasi">Sırt Çantası</option>
+                <option value="cuzdan">Cüzdan</option>
+                <option value="portfoy-el-cantasi">Portföy El Çantası</option>
+                <option value="plaj-cantasi">Plaj Çantası</option>
+                <option value="makyaj-cantasi">Makyaj Çantası</option>
+                <option value="seyahat-cantasi">Seyehat Çantası</option>
+                <option value="canta-diger">Çanta (Diger)</option>
+                <option value="spor-ayakkabi">Spor Ayakkabı</option>
+                <option value="oxford-loafer">oxford-loafer</option>
+                <option value="ince-topuklu">İnce Topuklu</option>
+                <option value="kalin-topuklu">Kalın Topuklu</option>
+                <option value="dolgu-topuklu">Dolgu Topuklu</option>
+                <option value="babet">Babet</option>              
+                <option value="sandalet">Sandalet</option>
+                <option value="terlik">Terlik</option>
+                <option value="bot">Bot</option>
+                <option value="cizme">Çizme</option>
+                <option value="gozluk">Gözlük</option>
+                <option value="saat">Saat</option>
+                <option value="taki">Takı</option>
+                <option value="kemer">Kemer</option>
+                <option value="sal">Şal</option>
+                <option value="eldiven">Eldiven</option>
+                <option value="atki">Atkı</option>
+                <option value="bere">Bere</option>
+                <option value="sapka">Şapka</option>
+                <option value="sac-aksesuarlari">Saç Aksesuarları</option>
+                <option value="corap">Çorap</option>
+                <option value="aksesuar-diger">Aksesuar (Diger)</option>
+                </select>
+                <br>
+                <input type="text" class="form-control" id="yorum" placeholder="Gönderilecek Yorum" required>
+                <center> 
+                <p id="result"></p>
+                <div class="col-md-12">
+                <button type="submit" id="baslat"  class="btn btn-inverse-success btn-fw"> Başlat </button>
+                </div>
+                </center>
+              </div>
+          </div>
+        </div>
+        </center>
+        <br>
+        <center>
+        <div class="col-lg-6">
+                                <div class="card border">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success">Durum</h5>
+                                        <hr>
+                                        <p id="true"></p>
+                                       
+                                    </div>
+                                </div> 
+                            </div>  
+                            <br>
+                            <script>
+  $('#baslat').click(function(){
+      document.getElementById("result").innerText = "Başlatıldı..";
+      var yorum = $('#yorum').val();
+      var category = $('#category').val();
+      $('#true').html('<iframe src="api/category-comment.php?yorum='+yorum+'&category='+category+'"  allowtransparency="true" frameborder="0" scrolling="yes"></iframe>');
+
+  });
+
+  </script> 
+</div>
+</div>
+</div>   
+</center></body>          
+<footer class="footer">
+            <div class="footer-inner-wraper">
+              <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © BySeCReT 2021</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Coded by <a href="#" target="_blank">BySeCReT</a></span>
+              </div>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+	</div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/vendors/jquery-circle-progress/js/circle-progress.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

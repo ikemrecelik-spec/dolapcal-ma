@@ -1,0 +1,68 @@
+<?php
+
+$minLikes = (int) readline("Enter the minimum number of likes: ");
+$maxLikes = (int) readline("Enter the maximum number of likes: ");
+
+// Bu fonksiyon, verilen link için teklifleri sorgular
+function teklifsor($link)
+{
+    $productId = explode("-", $link);
+    $productId = $productId[count($productId) - 1];
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api-gateway.dolap.com/product/bid/quickbids?productId=$productId",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "access-token: 8941a545-5524-4a1a-9954-13ec72ce787e32f3e5b1-4251-470b-9227-cc5cbc4ddce2",
+            "appplatform: android",
+            "appversion: 274",
+            "categorygroup: WOMAN",
+            "content-type: application/json",
+            "host: api-gateway.dolap.com",
+            "user-agent: okhttp/4.9.1"
+        ),
+    ));
+    return curl_exec($curl);
+}
+
+error_reporting(0);
+
+// Veritabanından linkleri almak için bağlantıyı kurma
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dolap";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Linkleri veritabanından seçme
+$sql = "SELECT links FROM urunler";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // Her bir link için teklif sorma ve teklif gönderme
+    while ($row = mysqli_fetch_assoc($result)) {
+        $link = $row["links"];
+        $sor = teklifsor($link);
+
+        if (json_decode($sor, true)["quickBids"]) {
+            $count = count(json_decode($sor, true)["quickBids"]);
+            for ($i = 0; $i < $count; $i++) {
+                if (json_decode($sor, true)["quickBids"][$i]["discount"] == 10) {
+                    echo "Link: $link, Bid Price: " . json_decode($sor, true)["quickBids"][$i]["bidPrice"] . "TL" . PHP_EOL;
+                }
+            }
+        } else {
+            echo '<p>' . json_decode($sor, true)["message"] . '</p>';
+        }
+    }
+} else {
+    echo "No links found in the database.";
+}
+
+mysqli_close($conn);
+?>

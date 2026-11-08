@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hesap Ekle</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+  </head>
+  <body>
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-md-6 col-md-offset-3">
+  				<h4 class="page-header text-center"> DOLAP BOTU</h4>
+				<form class="form-horizontal" action="ekle1.php" method="POST">
+					<div class="form-group">
+
+						<label for="name" class="col-sm-2 control-label">Kullanıcı Adı</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="kullaniciadi" name="kullaniciadi" placeholder="Kullanıcı Adı" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Şifre</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="pass" name="pass" placeholder="Şifre" required>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button class="btn btn-primary" type="submit">Ekle</button>
+						</div>
+					</div>
+				
+					</div>
+				</form>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
